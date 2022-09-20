@@ -74,8 +74,8 @@ class TagsController extends Controller
             'slug' => $data['slug'],
             'created_at' => now(),
             // ganti uuid user login nanti
-            'created_by' => '0a351387-e1c2-43fb-a563-4abedc3cd558',
-            'updated_by' => '0a351387-e1c2-43fb-a563-4abedc3cd558',
+            'created_by' => User::first()->uuid,
+            'updated_by' => User::first()->uuid,
         ]);
         try {
             $tags->save();

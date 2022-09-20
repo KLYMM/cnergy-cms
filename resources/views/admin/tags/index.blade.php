@@ -16,11 +16,11 @@
             <form class="row g-3" method="GET">
                 <div class="col-md-4">
                     <label for="inputTag" class="form-label">Tag</label>
-                    <input name="inputTags" id="tag" placeholder="Tag" type="text" class="form-control">
+                    <input name="inputTags" value="{{ old('inputTags') }}" id="tag" placeholder="Tag" type="text" class="form-control">
                 </div>
                 <div class="col-md-4">
                     <label for="inputSlug" class="form-label">Slug</label>
-                    <input name="inputSlug" id="slug" placeholder="Slug" type="text" class="form-control">
+                    <input name="inputSlug" value="{{ old('inputSlug') }}" id="slug" placeholder="Slug" type="text" class="form-control">
                 </div>
                 <div class="col-md-2">
                     <label for="inputState" class="form-label">Status</label>

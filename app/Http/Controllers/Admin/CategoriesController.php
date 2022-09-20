@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
@@ -71,7 +72,7 @@ class CategoriesController extends Controller
             'types' => '["news", "video", "photonews"]',
             'created_at' => now(),
             // ganti uuid user login nanti
-            'created_by' => '53ca775a-49f4-476e-8a30-cc1e6a5ac306',
+            'created_by' => User::first()->uuid,
         ]);
         try {
             $category->save();
@@ -124,7 +125,7 @@ class CategoriesController extends Controller
                 'types' => '["news", "video", "photonews"]',
                 'updated_at' => now(),
                 // ganti uuid user login nanti
-                'updated_by' => '53ca775a-49f4-476e-8a30-cc1e6a5ac306',
+                'updated_by' => User::first()->uuid,
             ]);
             return redirect('categories')->with('status', 'Successfully to Update Category');
         } catch (\Throwable $e) {
