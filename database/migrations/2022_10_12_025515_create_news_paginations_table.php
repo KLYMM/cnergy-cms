@@ -19,7 +19,14 @@ return new class extends Migration
             $table->integer('order_by_no');
             $table->string('title', 255);
             $table->longText('content');
-            
+            $table->softDeletes();
+            $table->uuid('deleted_by')->nullable();
+
+            $table->foreign('deleted_by')
+            ->references('uuid')
+            ->on('users')
+            ->onCascade('delete');
+
             $table->foreign('news_id')
             ->references('id')
             ->on('news')

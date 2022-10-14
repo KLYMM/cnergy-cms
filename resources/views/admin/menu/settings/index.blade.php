@@ -137,7 +137,7 @@
                             <div class="form-group">
                                 <label for="site_logo" class="mb-2">Site Logo (.png)</label>
                                 <div class="flex flex-column">
-                                    <img src="@if ($menu_settings ?? null) {{ asset('storage/site_logo_image/' . $menu_settings->site_logo) }} @else {{ asset('assets/images/site_logo.png') }} @endif"
+                                    <img src="@if ($menu_settings ?? null) {{ Storage::url($menu_settings->site_logo) }} @else {{ asset('assets/images/site_logo.png') }} @endif"
                                         class="mb-3 image-preview" alt="Your Image" id="site_logo_preview">
                                     <input type="file" class="form-control" name="site_logo" id="site_logo_input"
                                         accept="image/png"
@@ -153,7 +153,7 @@
                             <div class="form-group">
                                 <label for="favicon" class="mb-2">Favicon (.ico)</label>
                                 <div class="flex flex-column">
-                                    <img src="@if ($menu_settings ?? null) {{ asset('storage/site_logo_image/' . $menu_settings->favicon) }} @else {{ asset('assets/images/site_logo.png') }} @endif"
+                                    <img src="@if ($menu_settings ?? null) {{ Storage::url($menu_settings->favicon) }} @else {{ asset('assets/images/site_logo.png') }} @endif"
                                         class="mb-3 image-preview" alt="Your Image" id="favicon_preview">
                                     <input type="file" class="form-control" name="favicon" id="favicon_input"
                                         accept="image/x-icon"

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\FrontEndSettingsRequest;
 use App\Http\Requests\GenerateTokenRequest;
+use App\Http\Utils\FileFormatPath;
 use App\Models\FrontEndSetting;
 use App\Models\MenuSetting;
 use Illuminate\Http\Request;
@@ -123,17 +124,23 @@ class FrontEndSettingsController extends Controller
             $menu = FrontEndSetting::first(['site_logo', 'favicon']);
             if ($request->hasFile('site_logo')) {
                 $file = $request->file('site_logo');
-                $site_logo = time() . "." . $file->getClientOriginalExtension();
-                Storage::delete('public/site_logo_image/' . $menu->site_logo);
-                $file->storeAs('public/site_logo_image', $site_logo);
-                $data['site_logo'] = $site_logo;
+                $fileFormatPath = new FileFormatPath('front-end-settings/site-logo', $file);
+                $data['site_logo'] = $fileFormatPath->storeFile();
+                if(isset($menu->site_logo)){
+                    if(Storage::exists($menu->site_logo)){
+                        Storage::delete($menu->site_logo);
+                    }
+                }
             }
             if ($request->hasFile('favicon')) {
                 $file = $request->file('favicon');
-                $favicon = time() . "." . $file->getClientOriginalExtension();
-                Storage::delete('public/site_logo_image/' . $menu->favicon);
-                $file->storeAs('public/site_logo_image', $favicon);
-                $data['favicon'] = $favicon;
+                $fileFormatPath = new FileFormatPath('front-end-settings/site-logo', $file);
+                $data['favicon'] = $fileFormatPath->storeFile();
+                if(isset($menu->favicon)){
+                    if(Storage::exists($menu->favicon)){
+                        Storage::delete($menu->favicon);
+                    }
+                }
             }
             FrontEndSetting::updateOrCreate([
                 'id' => 1

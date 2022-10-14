@@ -60,6 +60,10 @@ class News extends Model
         return $this->belongsToMany(Tag::class, 'news_tags');
     }
 
+    public function news_paginations(){
+        return $this->hasMany(NewsPagination::class, 'news_id')->orderBy("order_by_no", "ASC");
+    }
+
     public function users()
     {
         return $this->hasManyThrough(

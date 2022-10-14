@@ -13,7 +13,7 @@
         {{ $item['menu_name'] }}
     </a>
     @if (count($item['children']))
-        <ul class="submenu">
+        <ul class="submenu py-2">
             @foreach ($item['children'] as $sidebar_child)
                 <x-sidebar-sub-menu :item="$sidebar_child" />
             @endforeach

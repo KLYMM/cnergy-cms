@@ -80,7 +80,7 @@
                                              </textarea>
                                         </div>
                                         <div class="form-group"> 
-                                            <label for="video" class="mb-2">Video Embed</label>
+                                            <label for="video" class="mb-2">Video Embed Code (HTML)</label>
                                             <textarea name="video" id="video" class="form-control" cols="30" rows="3" required>@if ($method === 'edit'){{ $news->video }}@endif</textarea>
                                         </div>
                                         {{-- @foreach ($video as $videos)
@@ -121,26 +121,35 @@
                                         <hr />
                                         <div class="collapse" id="satu">
                                             <div class="form-group">
-                                                        <label for="basicInput">Publish Status&nbsp;&nbsp;</label>
-                                                            <input class="form-check-input" type="radio" value="1" name="isPublished" @if ($method === 'edit' and $news->is_published == '1') checked @endif/>
-                                                            <label class="form-check-label">
-                                                                On
-                                                            </label>
-                                                            <input class="form-check-input" type="radio" value="0" name="isPublished" @if ($method === 'edit' and $news->is_published == '0') checked @endif/>
-                                                            <label class="form-check-label">
-                                                                Off
-                                                            </label>
-                                            </div>
-                                            <div class="form-group">
                                                 <div class="row">
-                                                    <div class="col-md-5">
-                                                        <label for="publishedAt" class="mb-2">Schedule</label>
+                                                    <div class="col-md-6">
+                                                        <label for="basicInput">Publish Status</label>
                                                     </div>
-                                                    <div class="col-md-7">
-                                                        <input type="date" class="form-control" id="publishedAt" name="publishedAt"
-                                                        placeholder="dd-mm-yyyy"
-                                                        @if ($method === 'edit') value="{{date('Y-m-d',strtotime($news->published_at))}}" @endif />
-
+                                                    <div class="col-md-6">
+                                                        <input class="form-check-input" type="radio" value="1"
+                                                        name="isPublished"
+                                                        @if ($method === 'edit' and $news->is_published == '1') checked @endif/>
+                                                        <label class="form-check-label">
+                                                            On
+                                                        </label>
+                                                        <input class="form-check-input" type="radio" value="0"
+                                                            name="isPublished"
+                                                            @if ($method === 'edit' and $news->is_published == '0') checked @endif/>
+                                                        <label class="form-check-label">
+                                                            Off
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label for="publishedAt">Schedule</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <input type="date" class="form-control" id="publishedAt"
+                                                               name="publishedAt"
+                                                               placeholder="dd-mm-yyyy"
+                                                               @if ($method === 'edit') value="{{date('Y-m-d',strtotime($news->published_at))}}" @endif />
                                                     </div>
                                                 </div>
                                             </div>

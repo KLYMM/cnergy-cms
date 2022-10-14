@@ -12,7 +12,11 @@
         </div>
     </div>
     <div class="image-file-preview mt-3">
-        <img src="@if(!isset($item)) {{ asset('assets/images/site_logo.png') }} @else {{ asset('storage/' . $item->slug) }}  @endif" alt="" srcset="" id="image_preview_result">
+        <img src="@if(!isset($item)) {{ asset('assets/images/site_logo.png') }} @else {{ Storage::url($item->image) }}  @endif" alt="" srcset="" id="image_preview_result">
+    </div>
+    
+    <div class="p-2 px-3 border mt-2">
+        <p class="m-0" id="image_title">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ab officiis non architecto odit.</p>
     </div>
     <hr>
     <div class="modal fade text-left " id="image-bank" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1"

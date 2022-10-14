@@ -11,16 +11,14 @@ use App\Models\Role;
 use App\Models\User;
 use App\Models\Category;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\NewsRequest;
 use App\Http\Utils\FileFormatPath;
-use App\Models\ImageBank;
+use App\Models\NewsPagination;
 use Illuminate\Support\Facades\Storage;
-use ViKon\Diff\Diff;
 
 class NewsController extends Controller
 {
@@ -140,7 +138,19 @@ class NewsController extends Controller
     public function store(Request $request)
     {
         $data = $request->input();
+
+        $news_paginations = array();
+        
         try {
+            for ($i = 0; $i < count($data['title']) - 1; $i++) {
+                $news_paginations[$i] = [
+                    'title' => $data['title'][$i + 1],
+                    // 'synopsis' => $data['synopsis'][$i + 1],
+                    'content' => $data['content'][$i + 1],
+                    'order_by_no' => $i
+                ];
+            }
+
             if ($request->file('upload_image') && !$data['upload_image_selected']) {
                 $file = $request->file('upload_image');
                 $fileFormatPath = new FileFormatPath($data['types'], $file);
@@ -148,8 +158,10 @@ class NewsController extends Controller
             }
 
             if ($data['upload_image_selected'] && !$request->file('upload_image')) {
-                $data['image'] = explode('http://127.0.0.1:8000/storage', $data['upload_image_selected'])[1];
+                $data['image'] = explode(Storage::url(""), $data['upload_image_selected'])[1];
             }
+
+            // return $news_paginations;
 
             $news = new News([
                 'is_headline' => $request->has('isHeadline') == false ? '0' : '1',
@@ -163,10 +175,10 @@ class NewsController extends Controller
                 'is_seo' => $request->has('isSeo') == false ? '0' : '1',
                 'is_disable_interactions' => $request->has('isDisableInteractions') == false ? '0' : '1',
                 'is_branded_content' => $request->has('isBrandedContent') == false ? '0' : '1',
-                'title' => $data['title'],
-                'slug' => Str::slug($data['title']),
+                'title' => $data['title'][0],
+                'slug' => Str::slug($data['title'][0]),
                 'content' => $data['content'],
-                'synopsis' => $data['synopsis'],
+                'synopsis' => $data['synopsis'][0],
                 'description' => $data['description'],
                 'types' => $data['types'],
                 'keywords' => $data['keywords'],
@@ -192,6 +204,17 @@ class NewsController extends Controller
             }
             foreach ($data['tags'] as $t) {
                 $news->tags()->attach($t);
+            }
+
+            if(count($news_paginations)){
+                foreach ($news_paginations as $news_page) {
+                    NewsPagination::create([
+                        'title' => $news_page['title'],
+                        'content' => $news_page['content'],
+                        'order_by_no' => $news_page['order_by_no'],
+                        'news_id' => $news->id,
+                    ]);
+                }
             }
 
             return \redirect()->route('news.index')->with('status', 'Successfully Add New News');
@@ -220,7 +243,7 @@ class NewsController extends Controller
     public function edit($id)
     {
         $method = explode('/', URL::current());
-        $news = News::where('id', $id)->with(['users'])->first();
+        $news = News::where('id', $id)->with(['users', 'news_paginations'])->first();
         $categories = Category::all();
         $tags = Tag::all();
         $types = ['news', 'photonews', 'video'];
@@ -285,7 +308,7 @@ class NewsController extends Controller
             }
 
             if ($data['upload_image_selected'] && !$request->file('upload_image')) {
-                $input['image'] = explode('http://127.0.0.1:8000/storage', $data['upload_image_selected'])[1];
+                $input['image'] = explode(Storage::url(""), $data['upload_image_selected'])[1];
             }
             $newsById->update($input);
             $newsById::find($id)->tags()->detach();
@@ -320,11 +343,12 @@ class NewsController extends Controller
             News::where('id', $id)->update([
                 'deleted_by' => Auth::user()->uuid,
             ]);
-            if (News::destroy($id)){
-                $log = new Log([
+            if (News::destroy($id)) {
+                $log = new Log(
+                    [
                         'news_id' => $id,
                         'updated_by' => \auth()->id(),
-                        'updated_content'=>json_encode('{}')
+                        'updated_content' => json_encode('{}')
                     ]
                 );
                 $log->save();
