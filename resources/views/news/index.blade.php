@@ -57,6 +57,15 @@
                     </select>
                 </div>
                 <div class="col-md-4">
+                    <label for="inputHeadline" class="form-label">Photographer</label>
+                    <select name="photographer" id="inputHeadline" class="form-select">
+                        <option value="" selected>All</option>
+                        @foreach ($photographers as $r)
+                            <option value="{{ $r->uuid }}">{{ $r->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-md-4">
                     <label for="inputHeadline" class="form-label">Editor</label>
                     <select name="editor" id="inputHeadline" class="form-select">
                         <option value="" selected>All</option>
@@ -114,7 +123,7 @@
                                 @endif
                                 <td>{{ $n->categories->category }}</td>
                                 <td>{{ $n->created_at->format('d M Y H:i') }}</td>
-                                
+
                                 @if ($n->editor_pick == 1)
                                     <td align="center">
                                         <i class="bi bi-check text-primary fs-2"></i>

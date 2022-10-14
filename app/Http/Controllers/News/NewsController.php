@@ -34,6 +34,7 @@ class NewsController extends Controller
         $news = News::with(['categories', 'tags']);
         $editors = User::join('roles', 'users.role_id', '=', 'roles.id')->where('roles.role', "Editor");
         $reporters = User::join('roles', 'users.role_id', '=', 'roles.id')->where('roles.role', "Reporter");
+        $photographers = User::join('roles','users.role_id','=','roles.id')->where('roles.role', "Photographer");
 
         if ($request->get('published')) {
             $published = $request->get('published');
@@ -87,7 +88,12 @@ class NewsController extends Controller
 
         if ($request->get('reporter')) {
             $reporter = $request->reporter;
-            $news->where('created_by', $reporter);
+            $news->whereJsonContains('reporters',$reporter);
+        }
+
+        if ($request->get('photographer')) {
+            $photographer = $request->photographer;
+            $news->whereJsonContains('photographers',$photographer);
         }
 
         // return response()->json($news);
@@ -97,6 +103,7 @@ class NewsController extends Controller
             'news' => $news->paginate(10)->withQueryString(),
             'editors' => $editors->get(),
             'reporters' => $reporters->get(),
+            'photographers'=>$photographers->get()
             // 'categories' => Category::whereNull("parent_id"),
         ]);
     }
@@ -163,7 +170,8 @@ class NewsController extends Controller
                 'description' => $data['description'],
                 'types' => $data['types'],
                 'keywords' => $data['keywords'],
-                'photographers'=>$request->has('photographers') == false ? '[]' :json_encode($data['photographers']),
+                'photographers'=>$request->has('photographers') == false ? null :json_encode($data['photographers']),
+                'reporters'=>$request->has('reporters') == false ? null :json_encode($data['reporters']),
                 'image' => $data['image'] ?? null,
                 'is_published' => $data['isPublished'],
                 'published_at' => $request->has('isPublished') == false ? null : $data['publishedAt'],
@@ -261,6 +269,7 @@ class NewsController extends Controller
                 'types' => $data['types'],
                 'keywords' => $data['keywords'],
                 'photographers'=>$request->has('photographers') == false ? null :json_encode($data['photographers']),
+                'reporters'=>$request->has('reporters') == false ? null :json_encode($data['reporters']),
                 'is_published' => $data['isPublished'],
                 'published_at' => $request->has('isPublished') == false ? null : $data['publishedAt'],
                 'published_by' => $request->has('isPublished') == false ? null : auth()->id(),

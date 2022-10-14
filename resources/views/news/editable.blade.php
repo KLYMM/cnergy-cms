@@ -273,6 +273,27 @@
                                                        @else placeholder="Enter Keyword" @endif />
                                             </div>
                                             <div class="form-group">
+                                                <label class="mb-2">Reporter</label><br>
+                                                <select name="reporters[]"
+                                                        class="choices form-select multiple-remove"
+                                                        multiple="multiple"
+                                                        id="reporter">
+                                                    <optgroup label="reporter">
+                                                        @foreach($users as $user)
+                                                            @if($user->roles->role === 'Reporter')
+                                                                <option
+                                                                    @if ($method === 'edit' and is_null(json_decode($news->reporters))==false)
+                                                                    @if(in_array($user->uuid,json_decode($news->reporters)))
+                                                                    selected
+                                                                    @endif
+                                                                    @endif
+                                                                    value="{{$user->uuid}}">{{$user->name}}</option>
+                                                            @endif
+                                                        @endforeach
+                                                    </optgroup>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
                                                 <label class="mb-2">Photographer</label><br>
                                                 <select name="photographers[]"
                                                         class="choices form-select multiple-remove"
