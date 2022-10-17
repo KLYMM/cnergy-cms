@@ -81,7 +81,7 @@ class NewsController extends Controller
 
         if ($request->get('editor')) {
             $editor = $request->editor;
-            $news->where('updated_by', $editor);
+            $news->whereJsonContains('contributors', $editor);
         }
 
         if ($request->get('reporter')) {
@@ -117,12 +117,10 @@ class NewsController extends Controller
         $users = User::with(['roles'])->get();
         $categories = Category::all();
         $tags = Tag::all();
-        $types = ['news', 'photonews', 'video'];
 //        return response()->json($users);
         return view('news.editable', [
             'method' => end($method),
             'categories' => $categories,
-            'types' => $types,
             'users' => $users,
             'tags' => $tags,
             'contributors'=>[]
@@ -153,7 +151,7 @@ class NewsController extends Controller
 
             if ($request->file('upload_image') && !$data['upload_image_selected']) {
                 $file = $request->file('upload_image');
-                $fileFormatPath = new FileFormatPath($data['types'], $file);
+                $fileFormatPath = new FileFormatPath('news', $file);
                 $data['image'] = $fileFormatPath->storeFile();
             }
 
@@ -180,10 +178,11 @@ class NewsController extends Controller
                 'content' => $data['content'][0],
                 'synopsis' => $data['synopsis'][0],
                 'description' => $data['description'],
-                'types' => $data['types'],
+                'types' => 'news',
                 'keywords' => $data['keywords'],
                 'photographers'=>$request->has('photographers') == false ? null :json_encode($data['photographers']),
                 'reporters'=>$request->has('reporters') == false ? null :json_encode($data['reporters']),
+                'contributors'=>$request->has('contributors') == false ? null :json_encode($data['contributors']),
                 'image' => $data['image'] ?? null,
                 'is_published' => $data['isPublished'],
                 'published_at' => $request->has('isPublished') == false ? null : $data['publishedAt'],
@@ -246,13 +245,11 @@ class NewsController extends Controller
         $news = News::where('id', $id)->with(['users', 'news_paginations'])->first();
         $categories = Category::all();
         $tags = Tag::all();
-        $types = ['news', 'photonews', 'video'];
         $contributors = $news->users;
         $users = User::with(['roles'])->get();
         return view('news.editable', [
             'method' => end($method),
             'categories' => $categories,
-            'types' => $types,
             'news' => $news,
             'tags' => $tags,
             'contributors'=>$contributors,
@@ -289,10 +286,11 @@ class NewsController extends Controller
                 'content' => $data['content'][0],
                 'synopsis' => $data['synopsis'][0],
                 'description' => $data['description'],
-                'types' => $data['types'],
+                'types' => 'news',
                 'keywords' => $data['keywords'],
                 'photographers'=>$request->has('photographers') == false ? null :json_encode($data['photographers']),
                 'reporters'=>$request->has('reporters') == false ? null :json_encode($data['reporters']),
+                'contributors'=>$request->has('contributors') == false ? null :json_encode($data['contributors']),
                 'is_published' => $data['isPublished'],
                 'published_at' => $request->has('isPublished') == false ? null : $data['publishedAt'],
                 'published_by' => $request->has('isPublished') == false ? null : auth()->id(),
@@ -303,7 +301,7 @@ class NewsController extends Controller
 
             if ($request->file('upload_image') && !$data['upload_image_selected']) {
                 $file = $request->file('upload_image');
-                $fileFormatPath = new FileFormatPath($data['types'], $file);
+                $fileFormatPath = new FileFormatPath('news', $file);
                 $input['image'] = $fileFormatPath->storeFile();
             }
 

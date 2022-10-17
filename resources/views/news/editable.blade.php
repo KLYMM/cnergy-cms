@@ -191,8 +191,6 @@
                                                                 </option>
                                                             @endforeach
                                                         </select>
-                                                        <br><a href="{{ route('category.create') }}" class="mb-2">Add
-                                                            Category</a>
                                                     </fieldset>
                                                 </div>
                                             </div>
@@ -315,34 +313,24 @@
                                             </div>
                                             <div class="form-group">
                                                 <label class="mb-2">Contributor</label><br>
-                                                <select name="contributor" class="choices form-select multiple-remove"
+                                                <select name="contributors[]" class="choices form-select multiple-remove"
                                                         multiple="multiple"
-                                                        id="contributor" disabled>
+                                                        id="contributor">
                                                     <optgroup label="contributor">
                                                         @foreach($contributors as $contributor)
-                                                            <option value="{{$contributor->name}}"
-                                                                    selected>{{$contributor->name}}</option>
+                                                            <option
+                                                                @if ($method === 'edit' and is_null(json_decode($news->contributors))==false)
+                                                                @if(in_array($contributor->uuid,json_decode($news->contributors)))
+                                                                selected
+                                                                @endif
+                                                                @endif
+                                                                value="{{$contributor->uuid}}"
+                                                                    >{{$contributor->name}}</option>
                                                         @endforeach
                                                     </optgroup>
                                                 </select>
                                             </div>
-                                            <div class="form-group">
-                                                <div class="row">
-                                                    <label for="publishedAt" class="mb-2">Type</label>
-                                                    <fieldset class="form-group">
-                                                        <select name="types" class="form-select" id="type">
-                                                            @if ($method === 'create')
-                                                                <option value="" disabled selected>Select Type</option>
-                                                            @endif
-                                                            @foreach ($types as $type)
-                                                                <option value="{{ $type }}"
-                                                                        @if ($method === 'edit' and $type === $news->types) selected @endif>{{ ucwords($type) }}
-                                                                </option>
-                                                            @endforeach
-                                                        </select>
-                                                    </fieldset>
-                                                </div>
-                                            </div>
+
                                         </div>
                                         <a data-bs-toggle="collapse" href="#lima">
                                             <i class="bi bi-chevron-down fs-6" style="float:right"></i>

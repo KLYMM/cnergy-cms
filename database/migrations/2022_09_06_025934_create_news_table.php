@@ -34,7 +34,6 @@ return new class extends Migration
             $table->enum('types', ['news', 'photonews', 'video']);
             $table->longText('keywords');
             $table->longText('photographers')->nullable();
-            $table->longText('reporters')->nullable();
             $table->string('image', 255)->unique()->nullable();
             $table->text('video')->nullable();
             $table->enum('is_published', [0, 1])->default(1);
@@ -50,28 +49,28 @@ return new class extends Migration
             $table->index(['title', 'slug', 'created_by', 'types', 'published_by']);
 
             $table->foreign('category_id')
-                    ->references('id')
-                    ->on('categories');
+                ->references('id')
+                ->on('categories');
 
             $table->foreign('published_by')
-                    ->references('uuid')
-                    ->on('users')
-                    ->onCascade('delete');
+                ->references('uuid')
+                ->on('users')
+                ->onCascade('delete');
 
             $table->foreign('created_by')
-                    ->references('uuid')
-                    ->on('users')
-                    ->onCascade('delete');
+                ->references('uuid')
+                ->on('users')
+                ->onCascade('delete');
 
             $table->foreign('updated_by')
-                    ->references('uuid')
-                    ->on('users')
-                    ->onCascade('delete');
+                ->references('uuid')
+                ->on('users')
+                ->onCascade('delete');
 
             $table->foreign('deleted_by')
-                    ->references('uuid')
-                    ->on('users')
-                    ->onCascade('delete');
+                ->references('uuid')
+                ->on('users')
+                ->onCascade('delete');
 
         });
     }
