@@ -140,7 +140,7 @@ class NewsController extends Controller
         $data = $request->input();
 
         $news_paginations = array();
-        
+
         try {
             for ($i = 0; $i < count($data['title']) - 1; $i++) {
                 $news_paginations[$i] = [
@@ -177,7 +177,7 @@ class NewsController extends Controller
                 'is_branded_content' => $request->has('isBrandedContent') == false ? '0' : '1',
                 'title' => $data['title'][0],
                 'slug' => Str::slug($data['title'][0]),
-                'content' => $data['content'],
+                'content' => $data['content'][0],
                 'synopsis' => $data['synopsis'][0],
                 'description' => $data['description'],
                 'types' => $data['types'],
@@ -284,10 +284,10 @@ class NewsController extends Controller
                 'is_seo' => $request->has('isSeo') == false ? '0' : '1',
                 'is_disable_interactions' => $request->has('isDisableInteractions') == false ? '0' : '1',
                 'is_branded_content' => $request->has('isBrandedContent') == false ? '0' : '1',
-                'title' => $data['title'],
-                'slug' => Str::slug($data['title']),
-                'content' => $data['content'],
-                'synopsis' => $data['synopsis'],
+                'title' => $data['title'][0],
+                'slug' => Str::slug($data['title'][0]),
+                'content' => $data['content'][0],
+                'synopsis' => $data['synopsis'][0],
                 'description' => $data['description'],
                 'types' => $data['types'],
                 'keywords' => $data['keywords'],
