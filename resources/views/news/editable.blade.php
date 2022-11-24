@@ -143,11 +143,12 @@
 
 
     <script>
-        $(document).ready(function() {
             $("#tags").select2({
                 placeholder: 'Select Tags',
                 allowClear: true,
+                tokenSeparators: [',', '\n'],
                 ajax: {
+                    
                     url: "{{ route('tag.index') }}",
                     dataType: 'json',
                     delay: 250,
@@ -165,13 +166,13 @@
                     }
                 }
             });
-        });
-        
-        $(document).ready(function() {
+
             $("#keyword").select2({
                 tags: true,
+                multiple: true,
                 placeholder: 'Select Keywords',
                 allowClear: true,
+                tokenSeparators: [',', '\n'],
                 ajax: {
                     url: "{{ route('keyword.index') }}",
                     dataType: 'json',
@@ -190,7 +191,6 @@
                     }
                 }
             });
-        });
     </script>
 
     <script src="https://cdn.tiny.cloud/1/vadmwvgg5mg6fgloc7tol190sn52g6mrsnk0dguphazk7y41/tinymce/4/tinymce.min.js"

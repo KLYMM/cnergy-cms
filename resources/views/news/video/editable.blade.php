@@ -104,6 +104,7 @@
     $(document).ready(function () {
         $("#tags").select2({
             placeholder: 'Select Tags',
+            tokenSeparators: [',', '\n'],
             allowClear: true,
             ajax: {
                 url: "{{route('tag.index')}}",
@@ -123,11 +124,22 @@
                 }
             }
         });
-    });
 
-        $(document).ready(function() {
+        var keywords = [];
+        $('#keyword').on('select2:select', function(e) {
+            const { params: { data } } = e;
+            var findItem = keywords.map(el => el.text);
+            keywords.push(data);
+            console.log(keywords);
+        });
+        $('#keyword').on('select2:unselect', function(e) {
+            const { params: { data } } = e;
+            keywords = keywords.filter(el => el.text !== data.text)
+        });
+
             $("#keyword").select2({
                 tags: true,
+                tokenSeparators: [',', '\n'],
                 placeholder: 'Select Keywords',
                 allowClear: true,
                 ajax: {

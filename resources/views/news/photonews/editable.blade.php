@@ -130,6 +130,7 @@
         $(document).ready(function() {
             $("#tags").select2({
                 placeholder: 'Select Tags',
+                tokenSeparators: [',', '\n'],
                 allowClear: true,
                 ajax: {
                     url: "{{ route('tag.index') }}",
@@ -149,10 +150,10 @@
                     }
                 }
             });
-        });
-            $(document).ready(function() {
+        
             $("#keyword").select2({
                 tags: true,
+                tokenSeparators: [',', '\n'],
                 placeholder: 'Select Keywords',
                 allowClear: true,
                 ajax: {
