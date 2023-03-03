@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Tools;
 
 use App\Http\Controllers\Controller;
 use App\Models\InventoryManagement;
-use Illuminate\Http\Request;
+use App\Http\Requests\InventoryManagementRequest;
 use Illuminate\Support\Str;
 
 class InventoryManagementController extends Controller
@@ -38,10 +38,10 @@ class InventoryManagementController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(InventoryManagementRequest $request)
     {
         try {
-            $input = $request->all();
+            $input = $request->validated();
             $data = [];
             $type = '';
             unset($input['_token']);

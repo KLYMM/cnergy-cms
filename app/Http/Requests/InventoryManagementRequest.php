@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StaticPageRequest extends FormRequest
+class InventoryManagementRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +24,13 @@ class StaticPageRequest extends FormRequest
     public function rules()
     {
         return [
-            //
-            'title' => 'required',
-            'slug' => 'required',
-            'content' => 'required',
+                'type' => 'array',
+                'creative_size' => 'array',
+                'code' => 'array',
+                'created_by' => 'array',
+                'template_id' => 'array',
+                'adunit_size' => 'array',
+                'placement_id' => 'array',
         ];
     }
 }
