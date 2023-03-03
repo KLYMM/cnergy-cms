@@ -83,7 +83,16 @@ class StaticPageController extends Controller
     public function store(Request $request)
     {
         //
-        $data = $request->input();
+        $data = $request->validate([
+            '_token' => ['required'],
+            'title' => ['required', 'max:255'],
+            'slug' => ['required'],
+            'content' => ['required'],
+            'isActive' => ['required'],
+            'save' => ['required'],
+        ]);
+        var_dump($data);
+        die();
 
         try {
             $static = new StaticPage([
