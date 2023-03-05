@@ -66,9 +66,10 @@ class RoleController extends Controller
         return view('admin.role.editable', ['method' => end($method)])->with('menus', $menus)->with('role', $role);
     }
 
-    public function update(Request $request, $id)
+    public function update(RoleRequest $request, $id)
     {
-        $data = $request->input();
+        $data = $request->validated();
+        var_dump($data);
         $menusId = $request->checkMenu;
         $role = $this->roleModel->findRoleById($id);
         try {

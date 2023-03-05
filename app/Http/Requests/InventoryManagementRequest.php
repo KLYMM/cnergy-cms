@@ -24,13 +24,37 @@ class InventoryManagementRequest extends FormRequest
     public function rules()
     {
         return [
-                'type' => 'array',
-                'creative_size' => 'array',
-                'code' => 'array',
-                'created_by' => 'array',
-                'template_id' => 'array',
-                'adunit_size' => 'array',
-                'placement_id' => 'array',
+            // Desktop
+                'desktop' => 'required|array',
+                'desktop.*.inventory' => 'required|string',
+                'desktop.*.id' => 'sometimes|nullable',
+                'desktop.*.slot_name' => 'required|string',
+                'desktop.*.adunit_size' => 'sometimes|nullable',
+                'desktop.*.creative_size' => 'sometimes|nullable',
+                'desktop.*.template_id' => 'sometimes|nullable',
+                'desktop.*.placement_id' => 'sometimes|nullable',
+                'desktop.*.code' => 'sometimes|nullable',
+            // Mobile
+                'mobile' => 'required|array',
+                'mobile.*.inventory' => 'required|string',
+                'mobile.*.id' => 'sometimes|nullable',
+                'mobile.*.slot_name' => 'required|string',
+                'mobile.*.adunit_size' => 'sometimes|nullable',
+                'mobile.*.creative_size' => 'sometimes|nullable',
+                'mobile.*.template_id' => 'sometimes|nullable',
+                'mobile.*.placement_id' => 'sometimes|nullable',
+                'mobile.*.code' => 'sometimes|nullable',
+            // AMP 
+                'amp' => 'required|array',
+                'amp.*.inventory' => 'required|string',
+                'amp.*.id' => 'sometimes|nullable',
+                'amp.*.slot_name' => 'required|string',
+                'amp.*.adunit_size' => 'sometimes|nullable',
+                'amp.*.creative_size' => 'sometimes|nullable',
+                'amp.*.template_id' => 'sometimes|nullable',
+                'amp.*.placement_id' => 'sometimes|nullable',
+                'amp.*.code' => 'sometimes|nullable',
+                
         ];
     }
 }

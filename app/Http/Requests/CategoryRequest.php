@@ -24,8 +24,12 @@ class CategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'category' => 'required|max:255',
-            'slug' => 'required'
+            'category' => 'required|string|max:255',
+            'meta_title' => 'required|string|max:255',
+            'meta_keywords' => 'required|string|max:255',
+            'meta_description' => 'required|string|max:255',
+            'types' => 'required|array',
+            'is_active' => 'sometimes|integer'
         ];
     }
 }

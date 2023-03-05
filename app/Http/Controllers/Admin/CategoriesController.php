@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\News;
+use App\Http\Requests\CategoryRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Auth;
@@ -18,7 +19,7 @@ class CategoriesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
         $categories = Category::getAll();
         return view('admin.categories.index',  [
@@ -44,9 +45,9 @@ class CategoriesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
-        $data = $request->input();
+        $data = $request->validated();
         $category = new Category([
             'is_active' => '1',
             'category' => ucwords($data['category']),
@@ -99,9 +100,9 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CategoryRequest $request, $id)
     {
-        $data = $request->input();
+        $data = $request->validated();
         try {
             Category::where('id',$id)->update([
                 'is_active' => $data['is_active'],
@@ -150,6 +151,8 @@ class CategoriesController extends Controller
     {
         try {
             $input = $request->sortedData;
+            var_dump($input);
+            die();
             $category = array();
             foreach ($input as $item) {
                 $item['created_by'] = auth()->id();
