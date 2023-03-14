@@ -15,4 +15,6 @@ function checkParent(selected) {
 }
 
 checkParent(selectedMenu);
+
+
 // console.log(arr);
