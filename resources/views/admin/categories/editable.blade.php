@@ -1,33 +1,12 @@
 @extends('layout.app')
-
-@section('css')
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
-<style type="text/css">
-    .bootstrap-tagsinput {
-        width: 100%;
-    }
-    
-    .bootstrap-tagsinput .tag {
-        margin-right: 2px;
-        color: white !important;
-        background-color: #38E54D;
-        padding: .2em .6em .3em;
-        font-size: 100%;
-        font-weight: 700;
-        vertical-align: baseline;
-        border-radius: .25em;
-    }
-</style>
-@endsection
-
+    @vite(['resources/sass/pages/category-page.scss', 'resources/js/pages/categoryPage.js'])
 @section('body')
 <x-page-heading title="Table Category" subtitle="View and Manage Category Data" />
 
 <section class="section">
 
     <div class="card col-md-7">
-
+        <h1 class="test">Table Category</h1>
         <div class="card-header">
             <span class="h4 text-capitalize">{{ $method !== 'edit' ? 'Create' : 'Edit' }} Category</span>
         </div>
@@ -143,8 +122,9 @@
 </section>
 @endsection
 @section('javascript')
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
-<script>
+<script type="module">
     $(function () {
         $('input')
             .on('change', function (event) {

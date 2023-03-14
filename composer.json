@@ -13,6 +13,7 @@
         "laravel/sanctum": "^3.0",
         "laravel/socialite": "^5.5",
         "laravel/tinker": "^2.7",
+        "laravel/ui": "^4.2",
         "lsolesen/pel": "^0.9.12",
         "spatie/laravel-activitylog": "^4.7",
         "unisharp/laravel-filemanager": "^2.5",

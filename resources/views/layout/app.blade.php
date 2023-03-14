@@ -7,15 +7,10 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <title>KLY - NewsHub</title>
-    @vite('resources/js/app.js')
-    <link rel="stylesheet" href="{{ asset('assets/css/main/app.css') }}">
 
-    <link rel="stylesheet" href="{{ asset('assets/css/main/app-dark.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/css/pages/menu.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/extensions/toastify-js/src/toastify.css') }}" />
-    @yield('css')
-    <link rel="shortcut icon" href="assets/images/logo/favicon.svg" type="image/x-icon">
-    <link rel="shortcut icon" href="assets/images/logo/favicon.png" type="image/png">
+    <link rel="shortcut icon" href="../../images/logo/logo.svg" type="image/x-icon">
+    <link rel="shortcut icon" href="../../images/logo/favicon.png" type="image/png">
+    @vite(['resources/js/app.js', 'resources/sass/init.scss', 'resources/sass/components/_menu.scss'])
     <script type="text/javascript">
         function timeNow() {
             // Refresh rate in milli seconds
@@ -71,11 +66,7 @@
             </div>
         </div>
     </div>
-    <script src="{{ asset('assets/js/bootstrap.js') }}"></script>
-    <script src="{{ asset('assets/js/app.js') }}"></script>
-    <script src="{{ asset('assets/js/menu.js') }}"></script>
-    <script src="{{ asset('assets/extensions/jquery/jquery.min.js') }}"></script>
-    <script>
+    <script type="module">
         $(document).ready(function() {
     
             // Add hover action for dropdowns
