@@ -1,27 +1,30 @@
 <?php
 
-use App\Http\Controllers\Admin\LoginController;
-use App\Http\Controllers\Dashboard\DashboardController;
-use App\Http\Controllers\Admin\MenuController;
-use App\Http\Controllers\Admin\CategoriesController;
-use App\Http\Controllers\Admin\FrontEndMenuController;
-use App\Http\Controllers\Admin\FrontEndSettingsController;
-use App\Http\Controllers\Admin\TagsController;
-use App\Http\Controllers\Admin\RoleController;
-use App\Http\Controllers\Admin\UsersController;
+use UniSharp\LaravelFilemanager\Lfm;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\News\NewsController;
+use App\Http\Controllers\Admin\MenuController;
+use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\TagsController;
 use App\Http\Controllers\News\PhotoController;
 use App\Http\Controllers\News\VideoController;
+use App\Http\Controllers\Admin\LoginController;
+use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Profile\ProfileController;
+use App\Http\Controllers\Tools\ImageBankController;
+use App\Http\Controllers\Tools\NewsDraftController;
+use App\Http\Controllers\Admin\CategoriesController;
+use App\Http\Controllers\Tools\StaticPageController;
 use App\Http\Controllers\TodayTag\TodayTagController;
 use App\Http\Controllers\Tools\ActivityLogController;
-use App\Http\Controllers\Tools\ImageBankController;
-use App\Http\Controllers\Tools\InventoryManagementController;
-use App\Http\Controllers\Tools\NewsDraftController;
-use App\Http\Controllers\Tools\StaticPageController;
+use App\Http\Controllers\Tools\AnouncementController;
+use App\Http\Controllers\Admin\FrontEndMenuController;
+use App\Http\Controllers\Tools\NotificationController;
 use App\Http\Controllers\Update\NewsTaggingController;
-use Illuminate\Support\Facades\Route;
-use UniSharp\LaravelFilemanager\Lfm;
+use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Admin\FrontEndSettingsController;
+use App\Http\Controllers\Auth\EmailVerificationController;
+use App\Http\Controllers\Tools\InventoryManagementController;
 
 /*
 |--------------------------------------------------------------------------
@@ -87,6 +90,7 @@ Route::group(['middleware' => ['usersPermissionRoles:1']], function () {
         Route::resource('news-draft', NewsDraftController::class);
         Route::resource('inventory-management', InventoryManagementController::class);
         Route::resource('activity-log', ActivityLogController::class)->only(['index']);
+        Route::resource('anouncement', AnouncementController::class);
     });
 
     // Documentation
@@ -120,6 +124,9 @@ Route::group(['middleware' => ['usersPermissionRoles:1']], function () {
     Route::post('/image-bank/api/image/delete', [ImageBankController::class, 'deleteImageTemp'])->name('file-upload.delete');
 
     Route::resource('profile', ProfileController::class);
+
+    Route::get('Notification', [NotificationController::class, 'index'])->name('notification');
+    Route::post('Notification', [NotificationController::class, 'store'])->name('notification.asread');
 });
 // Route::post('/verify-email/{id}/{hash}', [EmailVerificationController::class, 'verify'])
 //     ->middleware(['auth', 'signed']) // <-- don't remove "signed"
@@ -137,4 +144,6 @@ Route::get('selKeyword', [NewsController::class, 'select2'])->name('keyword.inde
 
 Route::get('/email/verify/{token}', [LoginController::class, 'verify'])->name('email.verify');
 Route::post('/front-end-menu/order/update', [FrontEndMenuController::class, 'changeOrderMenu'])->name('front-end-menu.order');
-Route::get('/documentation',function (){return redirect('/api/documentation');});
+Route::get('/documentation',function (){
+    return redirect('/api/documentation');
+});
