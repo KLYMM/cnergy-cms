@@ -4,8 +4,9 @@ import laravel from "laravel-vite-plugin";
 
 const mainPath = ["resources/sass/app.scss", "resources/js/app.js"];
 const pages = [
-    "resources/sass/pages/category-page.scss",
-    
+    "resources/sass/pages/auth.scss",
+    "resources/sass/pages/input-category-page.scss",
+    "resources/js/pages/categoryPage.js",
 ];
 
 export default defineConfig({

@@ -1,5 +1,5 @@
 @extends('layout.app')
-    @vite(['resources/sass/pages/category-page.scss', 'resources/js/pages/categoryPage.js'])
+    @vite(['resources/sass/pages/input-category-page.scss', 'resources/js/pages/categoryPage.js'])
 @section('body')
 <x-page-heading title="Table Category" subtitle="View and Manage Category Data" />
 
@@ -16,7 +16,7 @@
             <form action="{{ route('category.update', $post->id) }}" method="post">
             @method('PUT')
             @else
-            <form action="{{ route('category.store') }}" method="post" id="basicform" data-parsley-validate="">
+            <form method="post" id="basicform" data-parsley-validate="">
             @endif
             @csrf
                 <div class="col-md-12">
@@ -122,10 +122,12 @@
 </section>
 @endsection
 @section('javascript')
-<!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script> -->
-<script type="module" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
-<script type="module">
-    console.log(window.$);
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
+<script>
+    $("#basicform").on('submit', (e)=>{
+        e.preventDefault();
+    })
     $(function () {
         $('input')
             .on('change', function (event) {

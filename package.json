@@ -19,6 +19,8 @@
         "@popperjs/core": "^2.11.6",
         "bootstrap": "^5.2.3",
         "bootstrap-tagsinput": "^0.7.1",
-        "jquery": "^3.6.4"
+        "jquery": "^3.6.4",
+        "sortablejs": "^1.15.0",
+        "toastify-js": "^1.12.0"
     }
 }

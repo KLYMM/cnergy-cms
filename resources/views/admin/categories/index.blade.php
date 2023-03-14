@@ -1,7 +1,6 @@
 @extends('layout.app')
 
 @section('css')
-    <link rel="stylesheet" href="{{ asset('assets/css/pages/menu.css') }}" />
     <style>
         .accordion-body:hover {
             background: transparent !important;
@@ -46,7 +45,5 @@
 @endsection
 
 @section('javascript')
-    <script src="{{ asset('assets/extensions/toastify-js/src/toastify.js') }}"></script>
-    <script src="{{ asset('assets/js/sortable.js') }}"></script>
-    <script src="{{ asset('assets/js/pages/sortable-item.js') }}"></script>
+        @vite('resources/js/pages/categoryPage.js');
 @endsection
