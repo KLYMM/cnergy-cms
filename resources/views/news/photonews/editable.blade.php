@@ -1,54 +1,19 @@
+<!DOCTYPE html>
+
 @extends('layout.app')
 
 @section('css')
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-
-
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('assets/css/pages/image-uploader.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/extensions/choices.js/public/assets/styles/choices.css') }}">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
-    <style type="text/css">
-        .bootstrap-tagsinput {
-            width: 100%;
-            background-color: #fff;
-            border: 1px solid #dce7f1;
-            display: inline-block;
-            padding: 5px 3px;
-            color: #607080;
-            vertical-align: middle;
-            border-radius: 0.25rem;
-            line-height: 23px;
-            cursor: text;
-        }
-
-        .bootstrap-tagsinput .tag {
-            color: white !important;
-            background-color: #748eec;
-            margin-right: 2px;
-            font-size: 100%;
-            font-weight: 600;
-            vertical-align: baseline;
-            border-radius: 0.25em;
-            padding: 0.2rem 0.5rem;
-        }
-
-        .search_select_box select {
-            width: 100%;
-            ;
-        }
-
-        a[aria-expanded=true] .bi-chevron-down {
-            display: none;
-        }
-
-
-        a[aria-expanded=false] .bi-chevron-up {
-            display: none;
-        }
-    </style>
 @endsection
+
+@vite([
+    'resources/sass/components/image-uploader.scss',
+    'resources/sass/components/tags-input.scss',
+    'resources/js/components/imageUploader.js',
+    'resources/sass/pages/photonews.scss',
+    'resources/js/pages/photoNewsUploader.js',
+    'resources/js/vendor/choices.js/public/assets/scripts/choices.js',
+    'resources/js/vendor/toastify.js'
+]);
 
 @push('head')
 @endpush
@@ -123,12 +88,9 @@
 
 
 @section('javascript')
-
-    <script src="{{ asset('assets/extensions/toastify-js/src/toastify.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
-
-    <script>
+    <script type="module">
         {{-- Get Tags Checked --}}
         $(document).ready(function() {
             $('#tags').select2({
@@ -228,12 +190,9 @@
 
     <script src="https://cdn.tiny.cloud/1/vadmwvgg5mg6fgloc7tol190sn52g6mrsnk0dguphazk7y41/tinymce/5/tinymce.min.js"
         referrerpolicy="origin"></script>
-    <script src="{{ asset('assets/js/pages/photo-news-uploader.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
+    
 
-    <script>
+    <script type="module">
         var editor_config = {
             path_absolute: "/",
             selector: "textarea.my-editor",
@@ -297,10 +256,9 @@
         tinymce.init(editor_config);
     </script>
 
-    <script src="{{ asset('assets/extensions/choices.js/public/assets/scripts/choices.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
 
-    <script>
+    <script type="module">
         $('.close-modals-button').on('click', function() {
             $('#image-bank').removeClass("show").css("display", "none")
         });

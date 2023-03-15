@@ -25,7 +25,5 @@
 @endsection
 
 @section('javascript')
-    <script src="{{ asset('assets/extensions/toastify-js/src/toastify.js') }}"></script>
-    <script src="{{ asset('assets/js/sortable.js') }}"></script>
-    <script src="{{ asset('assets/js/pages/sortable-item.js') }}"></script>
+    @vite('resources/js/components/handleSortable.js');
 @endsection

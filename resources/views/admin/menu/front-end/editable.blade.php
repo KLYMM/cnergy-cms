@@ -1,8 +1,5 @@
 @extends('layout.app')
 
-@section('css')
-@endsection
-
 @section('body')
     <x-page-heading title="FrontEnd Menu Config" subtitle="Manage frontend menu for user" />
     <section class="section">
@@ -185,6 +182,5 @@
                 url.style.display = 'block';
             }
         }
-        console.log(method);
     </script>
 @endsection

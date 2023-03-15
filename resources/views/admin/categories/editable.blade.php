@@ -1,5 +1,5 @@
 @extends('layout.app')
-    @vite(['resources/sass/pages/input-category-page.scss', 'resources/js/pages/categoryPage.js'])
+    @vite(['resources/sass/components/tags-input.scss'])
 @section('body')
 <x-page-heading title="Table Category" subtitle="View and Manage Category Data" />
 

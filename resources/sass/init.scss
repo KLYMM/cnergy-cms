@@ -5,15 +5,15 @@
 @import 'variables';
 
 // Apps
-@import 'app';
 @import 'app-dark';
 
 // Comps
-@import 'components/menu';
 @import 'components/auth';
 
 // Bootstrap
 @import 'bootstrap/scss/bootstrap';
+@import 'app';
 
+@import 'components/menu';
 // Toastify
 @import "toastify-js/src/toastify.css";

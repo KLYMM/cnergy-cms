@@ -1,7 +1,7 @@
 @extends('layout.app')
 
 @section('css')
-    <link rel="stylesheet" href="{{ asset('assets/css/pages/image-uploader.css') }}" />
+    @vite('resources/sass/components/image-uploader.scss');
 @endsection
 
 @section('body')
@@ -78,5 +78,5 @@
 @endsection
 
 @section('javascript')
-    {{-- <script src="{{ asset('assets/js/pages/image-uploader.js') }}"></script> --}}
+    @vite("resources/js/components/imageUploader.js")
 @endsection

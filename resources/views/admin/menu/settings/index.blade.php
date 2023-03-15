@@ -494,5 +494,5 @@
 @endsection
 
 @section('javascript')
-    <script src="{{ asset('assets/js/pages/menu_settings.js') }}"></script>
+    @vite('resources/js/pages/menuSettings.js')
 @endsection

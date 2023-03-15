@@ -45,5 +45,5 @@
 @endsection
 
 @section('javascript')
-        @vite('resources/js/pages/categoryPage.js');
+        @vite('resources/js/components/handleSortable.js');
 @endsection

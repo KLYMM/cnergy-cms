@@ -1,9 +1,5 @@
 @extends('layout.app')
 
-@section('css')
-<link rel="stylesheet" href="{{ asset('assets/css/pages/menu.css') }}" />
-@endsection
-
 @section('body')
 <x-page-heading title="Table Role" subtitle="View and Manage Role Data" />
 <section class="section">
@@ -121,8 +117,4 @@
     
 </section>
 
-@endsection
-
-@section('javascript')
-<script src="assets/extensions/jquery/jquery.min.js"></script>
 @endsection

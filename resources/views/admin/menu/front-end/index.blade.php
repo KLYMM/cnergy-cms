@@ -1,8 +1,5 @@
 @extends('layout.app')
 
-@section('css')
-<link rel="stylesheet" href="{{ asset('assets/css/pages/menu.css') }}" />
-@endsection
 
 @section('body')
 <x-page-heading title="FrontEnd Menu Config" subtitle="Manage frontend menu for user" />
@@ -46,7 +43,5 @@
 @endsection
 
 @section('javascript')
-<script src="{{ asset('assets/extensions/toastify-js/src/toastify.js') }}"></script>
-<script src="{{ asset('assets/js/sortable.js') }}"></script>
-<script src="{{ asset('assets/js/pages/sortable-item.js') }}"></script>
+    @vite('resources/js/components/handleSortable.js');
 @endsection

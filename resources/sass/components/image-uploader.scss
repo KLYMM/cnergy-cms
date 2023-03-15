@@ -1,0 +1,98 @@
+.input-file-uploader {
+}
+
+.modal-image-uploader {
+    max-width: 800px !important;
+}
+
+.input-file-uploader > * {
+    /* width: 33.333%; */
+}
+
+.input-file-uploader > span {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.input-file-uploader > .input-upload-file {
+    position: relative;
+    display: flex;
+    cursor: pointer;
+    background-color: #198754;
+}
+
+.input-file-uploader > .input-upload-file:hover {
+    background-color: #11613c;
+}
+
+.input-file-uploader > .input-upload-file input {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    opacity: 0;
+    z-index: 2;
+    cursor: pointer;
+}
+
+.input-file-uploader > .input-upload-file span {
+    width: 100%;
+    height: 100%;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    cursor: pointer;
+}
+
+.image-file-preview img {
+    width: 100%;
+    object-fit: cover;
+}
+
+
+#image_preview_modal {
+    width: 100%;
+    object-fit: cover;
+    max-width: 450px;
+}
+
+.image-card {
+    width: 175px;
+    height: fit-content;
+    margin: 3px;
+    margin-top: 2.5px;
+    float: left;
+}
+
+.button-action {
+    background-color: var(--bs-btn-bg);
+    border: var(--bs-btn-border-width) solid var(--bs-btn-border-color);
+    border-radius: 0;
+    color: white;
+    cursor: pointer;
+    display: inline-block;
+    font-family: var(--bs-btn-font-family);
+    font-size: var(--bs-btn-font-size);
+    font-weight: var(--bs-btn-font-weight);
+    line-height: var(--bs-btn-line-height);
+    padding: 0.375rem 0.75rem;
+    text-align: center;
+    text-decoration: none;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+        border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    vertical-align: middle;
+}
+
+.button-action:hover{
+    background-color: #a17a05;
+}
