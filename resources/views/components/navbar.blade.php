@@ -51,25 +51,31 @@
                             <a class="nav-link active dropdown-toggle text-gray-600" href="#"
                                 data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
                                 <i class='bi bi-bell bi-sub fs-4'></i>
+                                {{-- menampilakan jumlah notif  --}}
+                                <span class="position-absolute top-2 start-80 translate-middle badge rounded-pill bg-danger" style="font-size: 10px">
+                                    <small>{{ $count }}</small>
+                                </span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end notification-dropdown"
                                 aria-labelledby="dropdownMenuButton">
                                 <li class="dropdown-header">
                                     <h6>Notifications</h6>
                                 </li>
-                                <li class="dropdown-item notification-item">
-                                    <a class="d-flex align-items-center" href="#">
-                                        <div class="notification-icon bg-success">
-                                            <i class="bi bi-file-earmark-check"></i>
-                                        </div>
-                                        <div class="notification-text ms-4">
-                                            <p class="notification-title font-bold">Feature</p>
-                                            <p class="notification-subtitle font-thin text-sm">Coming Soon</p>
-                                        </div>
-                                    </a>
-                                </li>
+                                {{-- menampilakan list notif  --}}
+                                @foreach ($anouncement as $an)
+                                @php
+                                    $data = Str::of($an->targetRole)->explode(',');
+                                @endphp
+                                @foreach ($data as $d)
+                                @if ($d == Auth::user()->role_id)
+                                    <li class="dropdown-item nitification-item">
+                                        <a href="{{ route('notification') }}">{{ $an->headline }}</a>
+                                    </li>
+                                @endif
+                                @endforeach
+                                @endforeach
                                 <li>
-                                    <p class="text-center py-2 mb-0"><a href="#">See all
+                                    <p class="text-center py-2 mb-0"><a href="{{ route('notification') }}">See all
                                             notification</a></p>
                                 </li>
                             </ul>
