@@ -1,15 +1,14 @@
 @extends('layout.app')
 
-@section('css')
-    <link rel="stylesheet" href="{{asset('assets/css/pages/menu.css')}}">
+@push('css')
+    <link rel="stylesheet" href="{{ asset('assets/css/pages/menu.css') }}">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
-@endsection
+@endpush
 
 @section('body')
-
-    <x-page-heading title="News Tagging" subtitle="View and Manage News Tagging Data"/>
+    <x-page-heading title="News Tagging" subtitle="View and Manage News Tagging Data" />
     <div class="card ">
         <div class="card-header d-flex align-items-center justify-content-between"><span class="h4">News Search</span>
         </div>
@@ -58,7 +57,7 @@
                     <select name="newsTypes" id="inputHeadline" class="form-select">
                         <option value="" selected>All</option>
                         @foreach ($newsTypes as $t)
-                            <option value="{{$t}}">{{$t}}</option>
+                            <option value="{{ $t }}">{{ $t }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -72,151 +71,151 @@
                 </div>
                 <div class="d-flex justify-content-end gap-3 mt-3">
                     <button type="submit" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top"
-                            title="Category Search"><i class="bi bi-search"></i>&nbsp;&nbsp;&nbsp;Search
+                        title="Category Search"><i class="bi bi-search"></i>&nbsp;&nbsp;&nbsp;Search
                     </button>
-                    <a href="" class="btn btn-light" data-bs-toggle="tooltip"
-                       data-bs-placement="top" title="Show All Category Data"><i
-                            class="bi bi-card-list"></i>&nbsp;&nbsp;&nbsp;Show All</a>
+                    <a href="" class="btn btn-light" data-bs-toggle="tooltip" data-bs-placement="top"
+                        title="Show All Category Data"><i class="bi bi-card-list"></i>&nbsp;&nbsp;&nbsp;Show All</a>
                 </div>
             </form>
         </div>
     </div>
     <section class="section">
 
-        <form action="{{route('tagging.multi')}}" class="row" method="POST">
+        <form action="{{ route('tagging.multi') }}" class="row" method="POST">
             @csrf
             <div class="card">
-                <div class="card-header d-flex align-items-center justify-content-between"><span
-                        class="h4">Page List</span>
+                <div class="card-header d-flex align-items-center justify-content-between"><span class="h4">Page
+                        List</span>
                 </div>
                 <div class="card-body">
                     <table class="table" id="table1">
                         <thead>
-                        <tr>
-                            <th>
-                                <input type="checkbox"
-                                       id="checkedTag"
-                                       class=" form-check-input-custom form-check-success ">
-                            </th>
-                            <th>No</th>
-                            <th>Title</th>
-                            <th style="width: 20%">Category</th>
-                            <th>Type</th>
-                            <th>Schedule</th>
-                            <th style="width:20%">Tag</th>
-                        </tr>
+                            <tr>
+                                <th>
+                                    <input type="checkbox" id="checkedTag"
+                                        class=" form-check-input-custom form-check-success ">
+                                </th>
+                                <th>No</th>
+                                <th>Title</th>
+                                <th style="width: 20%">Category</th>
+                                <th>Type</th>
+                                <th>Schedule</th>
+                                <th style="width:20%">Tag</th>
+                            </tr>
                         </thead>
                         <tbody>
-                        @foreach ($news as $n)
-                            <tr>
-                                <td>
-                                    <input type="checkbox"
-                                           class="checkedTag{{$n->id}} form-check-input-custom form-check-success "
-                                           name="checkedTag[]"
-                                           value="{{$n->id}}">
-                                </td>
-                                <td>{{$news->firstItem() + $loop->index}}</td>
-                                <td>{{$n->title}}</td>
-                                <td>{{$n->categories->category}}</td>
-                                <td>{{$n->types}}</td>
-                                <td>{{$n->published_at}}</td>
+                            @foreach ($news as $n)
+                                <tr>
+                                    <td>
+                                        <input type="checkbox"
+                                            class="checkedTag{{ $n->id }} form-check-input-custom form-check-success "
+                                            name="checkedTag[]" value="{{ $n->id }}">
+                                    </td>
+                                    <td>{{ $news->firstItem() + $loop->index }}</td>
+                                    <td>{{ $n->title }}</td>
+                                    <td>{{ $n->categories->category }}</td>
+                                    <td>{{ $n->types }}</td>
+                                    <td>{{ $n->published_at }}</td>
 
-                                <td>
-                                    <div class="form-group">
-                                        <select id='tags{{$n->id}}' name="tags[]" multiple>
-                                            @foreach($n->tags as $value)
-                                                <option value="{{ $value->id }}" selected> {{ $value->tags }} </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
+                                    <td>
+                                        <div class="form-group">
+                                            <select id='tags{{ $n->id }}' name="tags[]" multiple>
+                                                @foreach ($n->tags as $value)
+                                                    <option value="{{ $value->id }}" selected> {{ $value->tags }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
 
-                                    {{-- Get Tags All Checked--}}
-                                    <script>
-                                        $("#checkedTag").click(
-                                            function () {
-                                                let getParent = document.getElementById("checkedTag")
-                                                console.log(getParent);
-                                                let getChild = document.querySelector(".checkedTag{{$n->id}}")
-                                                if (getParent.checked === true) {
-                                                    getChild.checked = true
-                                                } else {
-                                                    getChild.checked = false
+                                        {{-- Get Tags All Checked --}}
+                                        <script>
+                                            $("#checkedTag").click(
+                                                function() {
+                                                    let getParent = document.getElementById("checkedTag")
+                                                    console.log(getParent);
+                                                    let getChild = document.querySelector(".checkedTag{{ $n->id }}")
+                                                    if (getParent.checked === true) {
+                                                        getChild.checked = true
+                                                    } else {
+                                                        getChild.checked = false
+                                                    }
                                                 }
-                                            }
-                                        )
-                                    </script>
+                                            )
+                                        </script>
 
-                                    {{-- Get Tags Checked --}}
-                                    <script>
-                                        $('#tags{{$n->id}}').select2({
-                                            width: '100%',
-                                            multiple: true,
-                                            tags: true,
-                                            tokenSeparators: [',', '\n'],
-                                            // maximumSelectionSize: 12,
-                                            // minimumInputLength: 2,
-                                            placeholder: "Select Tags",
-                                            allowClear: true,
+                                        {{-- Get Tags Checked --}}
+                                        <script>
+                                            $('#tags{{ $n->id }}').select2({
+                                                width: '100%',
+                                                multiple: true,
+                                                tags: true,
+                                                tokenSeparators: [',', '\n'],
+                                                // maximumSelectionSize: 12,
+                                                // minimumInputLength: 2,
+                                                placeholder: "Select Tags",
+                                                allowClear: true,
 
-                                            ajax: {
-                                                url: "{{route('tagging.search')}}",
-                                                type: "post",
-                                                dataType: 'json',
-                                                delay: 250,
-                                                global: false,
-                                                cache: true,
-                                                data: function (params) {
-                                                    return {
-                                                        _token: '{{csrf_token()}}',
-                                                        search: params.term
-                                                    };
-                                                },
-                                                processResults: function (response) {
-                                                    return {
-                                                        results: response
-                                                    };
+                                                ajax: {
+                                                    url: "{{ route('tagging.search') }}",
+                                                    type: "post",
+                                                    dataType: 'json',
+                                                    delay: 250,
+                                                    global: false,
+                                                    cache: true,
+                                                    data: function(params) {
+                                                        return {
+                                                            _token: '{{ csrf_token() }}',
+                                                            search: params.term
+                                                        };
+                                                    },
+                                                    processResults: function(response) {
+                                                        return {
+                                                            results: response
+                                                        };
 
-                                                },
-                                                success: function (response) {
-                                                    console.log('response', response)
-                                                },
-                                                error: function (error) {
-                                                    console.log(error, 'error get tags');
-                                                },
-                                            }
-                                        });
-                                    </script>
-
-                                    {{--  Auto Save Inline Table--}}
-                                    <script>
-                                        $('#tags{{$n->id}}').change(function () {
-                                            var tags = $('#tags{{$n->id}}').val();
-                                            $.ajax({
-                                                type: "POST",
-                                                url: "{{route('tagging.edit')}}",
-                                                data: {
-                                                    id: {{$n->id}},
-                                                    tags: tags,
-                                                    _token:@json(csrf_token())},
-                                                success: function (data) {
-                                                    console.log(data);
-                                                },
-                                                error: function (error) {
-                                                    console.log(error, 'error auto save inline');
-                                                },
+                                                    },
+                                                    success: function(response) {
+                                                        console.log('response', response)
+                                                    },
+                                                    error: function(error) {
+                                                        console.log(error, 'error get tags');
+                                                    },
+                                                }
                                             });
-                                        });
-                                    </script>
-                                </td>
-                            </tr>
-                        @endforeach
+                                        </script>
+
+                                        {{--  Auto Save Inline Table --}}
+                                        <script>
+                                            $('#tags{{ $n->id }}').change(function() {
+                                                var tags = $('#tags{{ $n->id }}').val();
+                                                $.ajax({
+                                                    type: "POST",
+                                                    url: "{{ route('tagging.edit') }}",
+                                                    data: {
+                                                        id: {{ $n->id }},
+                                                        tags: tags,
+                                                        _token: @json(csrf_token())
+                                                    },
+                                                    success: function(data) {
+                                                        console.log(data);
+                                                    },
+                                                    error: function(error) {
+                                                        console.log(error, 'error auto save inline');
+                                                    },
+                                                });
+                                            });
+                                        </script>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
             </div>
 
             <div class="card">
-                <div class="card-header d-flex align-items-center justify-content-between"><span class="h4">Mass Tag Checked News</span>
+                <div class="card-header d-flex align-items-center justify-content-between"><span class="h4">Mass Tag
+                        Checked News</span>
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -225,8 +224,7 @@
                         </div>
                         <div class="col">
                             <button type="submit" class="btn btn-primary" data-bs-toggle="tooltip"
-                                    data-bs-placement="top"
-                                    title="Mass Tag"><i class="bi bi-bookmark-fill"></i> Mass Tag
+                                data-bs-placement="top" title="Mass Tag"><i class="bi bi-bookmark-fill"></i> Mass Tag
                             </button>
                         </div>
                     </div>
@@ -243,27 +241,27 @@
                         placeholder: "Select Tags",
                         allowClear: true,
                         ajax: {
-                            url: "{{route('tagging.search')}}",
+                            url: "{{ route('tagging.search') }}",
                             type: "post",
                             dataType: 'json',
                             delay: 250,
                             global: false,
-                            data: function (params) {
+                            data: function(params) {
                                 return {
-                                    _token: '{{csrf_token()}}',
+                                    _token: '{{ csrf_token() }}',
                                     search: params.term
                                 };
                             },
-                            processResults: function (response) {
+                            processResults: function(response) {
                                 return {
                                     results: response
                                 };
                             },
                             cache: true,
-                            success: function (response) {
+                            success: function(response) {
                                 console.log('response', response)
                             },
-                            error: function (error) {
+                            error: function(error) {
                                 console.log(error, 'error get tags');
                             },
                         }
@@ -273,12 +271,12 @@
 
             </div>
             <div class="d-flex">
-                {{$news->links()}}
+                {{ $news->links() }}
             </div>
         </form>
     </section>
 @endsection
-@section('javascript')
+@push('javascript')
     <script src="https://cdn.datatables.net/v/bs5/dt-1.12.1/datatables.min.js"></script>
     <script src="assets/js/bootstrap.js"></script>
-@endsection
+@endpush

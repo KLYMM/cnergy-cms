@@ -1,5 +1,5 @@
 @extends('layout.app')
-@section('css')
+@push('css')
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
 
@@ -56,7 +56,7 @@
             max-width: 450px;
         }
     </style>
-@endsection
+@endpush
 
 @push('head')
 @endpush
@@ -141,7 +141,7 @@
 @endsection
 
 
-@section('javascript')
+@push('javascript')
     <script src="{{ asset('assets/extensions/toastify-js/src/toastify.js') }}"></script>
     {{-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script> --}}
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js"></script>
@@ -345,4 +345,4 @@
             $('.example').dateAndTime();
         });
     </script> --}}
-@endsection
+@endpush
