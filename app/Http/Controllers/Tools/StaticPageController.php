@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Tools;
 
 use App\Http\Controllers\Controller;
 use App\Models\StaticPage;
+use App\Http\Requests\StaticPageRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Carbon\Carbon;
@@ -80,19 +81,10 @@ class StaticPageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StaticPageRequest $request)
     {
         //
-        $data = $request->validate([
-            '_token' => ['required'],
-            'title' => ['required', 'max:255'],
-            'slug' => ['required'],
-            'content' => ['required'],
-            'isActive' => ['required'],
-            'save' => ['required'],
-        ]);
-        var_dump($data);
-        die();
+        $data = $request->validated();
 
         try {
             $static = new StaticPage([
@@ -147,7 +139,7 @@ class StaticPageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StaticPageRequest $request, $id)
     {
         //
         $data = $request->input();

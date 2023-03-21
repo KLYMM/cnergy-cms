@@ -26,10 +26,8 @@ class StaticPageRequest extends FormRequest
         return [
             //
             'title' => 'required',
+            'slug' => 'required',
             'content' => 'required',
-            'is_active' => 'required',
-            'is_show_footer' => 'required',
-            'created_by' => 'required'
         ];
     }
 }

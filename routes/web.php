@@ -23,6 +23,8 @@ use App\Http\Controllers\Update\NewsTaggingController;
 use Illuminate\Support\Facades\Route;
 use UniSharp\LaravelFilemanager\Lfm;
 
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -53,21 +55,6 @@ Route::group(['middleware' => ['usersPermissionRoles:1']], function () {
             Route::resource('role', RoleController::class);
             Route::resource('user-setting', UsersController::class);
         });
-
-        Route::post('/front-end-menu/api/change/', [FrontEndMenuController::class, 'changeOrderMenu']);
-        Route::get("/front-end-menu/create/{id?}", [FrontEndMenuController::class, 'create'])->name('front-end-menu.create');
-        Route::resource('front-end-menu', FrontEndMenuController::class)->except(['create']);
-
-        Route::post("/generate/token", [FrontEndSettingsController::class, 'generateToken'])->name('generate.token');
-        Route::resource('/front-end-setting', FrontEndSettingsController::class);
-        Route::post("/generate/configuration", [FrontEndSettingsController::class, 'generateConfiguration'])->name('generate.configuration');
-        Route::post("/imagesize", [FrontEndSettingsController::class, 'imageSize'])->name('imagesize.info');
-        Route::post("/cache-clear", [FrontEndSettingsController::class, 'cacheClear'])->name('clearcache');
-
-        Route::get("/menu/create/{id?}", [MenuController::class, 'create'])->name('menu.create');
-        Route::post("/menu/api/change/", [MenuController::class, 'changeOrderMenu']);
-        Route::resource('menu', MenuController::class)->except(['create']);
-
 
         Route::get("/menu/create/{id?}", [MenuController::class, 'create'])->name('menu.create');
         Route::post("/menu/api/change/", [MenuController::class, 'changeOrderMenu']);
@@ -112,14 +99,6 @@ Route::group(['middleware' => ['usersPermissionRoles:1']], function () {
             Route::post('tagging-update', [NewsTaggingController::class, 'updateTagging'])->name('tagging.edit');
         });
     });
-
-    Route::get('image/{filename}', [ImageBankController::class, 'displayImage'])->name('image.displayImage');
-    Route::get('/image-bank/api/list/', [ImageBankController::class, 'apiList'])->name('image_bank.api');
-    Route::post('/image-bank/api/create', [ImageBankController::class, 'upload_image']);
-    Route::post('/image-bank/api/image/store', [ImageBankController::class, 'storeImage'])->name('file-upload');
-    Route::post('/image-bank/api/image/delete', [ImageBankController::class, 'deleteImageTemp'])->name('file-upload.delete');
-
-    Route::resource('profile', ProfileController::class);
 });
 // Route::post('/verify-email/{id}/{hash}', [EmailVerificationController::class, 'verify'])
 //     ->middleware(['auth', 'signed']) // <-- don't remove "signed"
@@ -127,14 +106,69 @@ Route::group(['middleware' => ['usersPermissionRoles:1']], function () {
 Route::get('/phpinfo', function () {
     return phpinfo();
 });
-Route::get('/auth/redirect', [LoginController::class, 'redirectToProvider']);
-Route::get('/auth/callback', [LoginController::class, 'handleProviderCallback']);
-Route::get('/login', [LoginController::class, 'index'])->name('login');
-Route::post('/login', [LoginController::class, 'login']);
-Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
-Route::get('selTag', [NewsController::class, 'select'])->name('tag.index');
-Route::get('selKeyword', [NewsController::class, 'select2'])->name('keyword.index');
 
-Route::get('/email/verify/{token}', [LoginController::class, 'verify'])->name('email.verify');
-Route::post('/front-end-menu/order/update', [FrontEndMenuController::class, 'changeOrderMenu'])->name('front-end-menu.order');
 Route::get('/documentation',function (){return redirect('/api/documentation');});
+
+Route::prefix('login')->group(function(){
+    Route::controller(LoginController::class)->group(function(){
+        Route::get('/login',  'index')->name('login');
+        Route::post('/login',  'login');
+        Route::get('/logout',  'logout')->name('logout');
+        Route::get('/email/verify/{token}',  'verify')->name('email.verify');
+});
+});
+
+
+// Route Group with one Controller in NewsController
+Route::controller(NewsController::class)->group(function(){
+    Route::get('selTag',  'select')->name('tag.index');
+    Route::get('selKeyword',  'select2')->name('keyword.index');
+});
+
+// Route Group with one Controller in ProfileController
+Route::controller(ProfileController::class)->group(function(){
+
+});
+
+// Route Group with one Controller in ImageBankController
+Route::controller(ImageBankController::class)->group(function(){
+    Route::get('image/{filename}', 'displayImage')->name('image.displayImage');
+    Route::get('/image-bank/api/list/', 'apiList')->name('image_bank.api');
+    Route::post('/image-bank/api/create', 'upload_image');
+    Route::post('/image-bank/api/image/store', 'storeImage')->name('file-upload');
+    Route::post('/image-bank/api/image/delete', 'deleteImageTemp')->name('file-upload.delete');
+});
+
+// Route Group with one Controller in LoginController
+Route::controller(LoginController::class)->group(function(){
+    Route::get('/login',  'index')->name('login');
+    Route::post('/login',  'login');
+    Route::get('/logout',  'logout')->name('logout');
+    Route::get('/email/verify/{token}',  'verify')->name('email.verify');
+});
+
+// Route Group with one Controller in FrontEndMenuController
+Route::controller(FrontEndMenuController::class)->group(function(){
+    Route::post('/front-end-menu/api/change/',  'changeOrderMenu');
+    Route::get("/front-end-menu/create/{id?}",  'create')->name('front-end-menu.create');
+    Route::post('/front-end-menu/order/update', 'changeOrderMenu')->name('front-end-menu.order');
+});
+
+// Route Group with one Controller in FrontEndMenuSettingsController
+Route::controller(FrontEndSettingsController::class)->group(function(){
+    Route::post("/generate/token",  'generateToken')->name('generate.token');
+    Route::post("/generate/configuration",  'generateConfiguration')->name('generate.configuration');
+    Route::post("/imagesize",  'imageSize')->name('imagesize.info');
+    Route::post("/cache-clear",'cacheClear')->name('clearcache');
+});
+
+//Route Resource
+Route::resource('/front-end-setting', FrontEndSettingsController::class);
+Route::resource('front-end-menu', FrontEndMenuController::class)->except(['create']);
+Route::resource('profile',ProfileController::class);
+
+//Ouath
+    Route::get('/auth/redirect',[LoginController::class,'redirectToProvider']);
+    Route::get('/auth/callback',[LoginController::class,'handleProviderCallback']);
+
+route::get('/index2',[DashboardController::class,'index2']);
