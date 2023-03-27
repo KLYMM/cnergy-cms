@@ -46,7 +46,7 @@
                     Image</a>
             </div>
             <div class="card-body">
-                <div class="d-flex flex-wrap gap-2 justify-content-center align-items-center" id="masonry">
+                <div class="d-flex flex-wrap gap-5 justify-content-center align-items-center" id="masonry">
                     @foreach ($image_bank as $item)
                         <div class="image-card border p-0">
                             @php
@@ -58,7 +58,7 @@
                                 $realPath = implode('/', $arr);
                             @endphp
                             <img src="{{ Storage::url($realPath) }}"
-                                alt="" class="w-100">
+                                alt="" class="w-100" style="height: 150px; object-fit: cover;">
                             <div class="d-flex flex-column gap-2 p-2">
                                 <p class="m-0 font-14">{{ $item->title }}</p>
                                 <div class="d-flex">
