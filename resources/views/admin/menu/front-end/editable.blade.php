@@ -1,7 +1,7 @@
 @extends('layout.app')
 
-@section('css')
-@endsection
+@push('css')
+@endpush
 
 @section('body')
     <x-page-heading title="FrontEnd Menu Config" subtitle="Manage frontend menu for user" />
@@ -147,7 +147,7 @@
     </section>
 @endsection
 
-@section('javascript')
+@push('javascript')
     <script>
         var target = document.getElementById("form-group-target");
         var url = document.getElementById("form-group-url");
@@ -170,7 +170,7 @@
         }
         var method = document.getElementById("methodType").value;
         if (method === 'edit') {
-            var value = "{{ $method == 'edit' ? $fe_menu->type:'' }}";
+            var value = "{{ $method == 'edit' ? $fe_menu->type : '' }}";
             console.log(value);
             if (value == 'anchor') {
                 target.style.display = 'none';
@@ -187,4 +187,4 @@
         }
         console.log(method);
     </script>
-@endsection
+@endpush

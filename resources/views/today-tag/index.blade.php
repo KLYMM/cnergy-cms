@@ -1,8 +1,8 @@
 @extends('layout.app')
 
-@section('css')
+@push('css')
     <link rel="stylesheet" href="{{ asset('assets/css/pages/menu.css') }}">
-@endsection
+@endpush
 
 @section('body')
     <x-page-heading title="Today Tag" subtitle="Set today's tag" />

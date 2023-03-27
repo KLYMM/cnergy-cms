@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/main/app-dark.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/pages/menu.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/extensions/toastify-js/src/toastify.css') }}" />
-    @yield('css')
+    @stack('css')
     <link rel="shortcut icon" href="assets/images/logo/favicon.svg" type="image/x-icon">
     <link rel="shortcut icon" href="assets/images/logo/favicon.png" type="image/png">
     <script type="text/javascript">
@@ -29,6 +29,7 @@
         }
     </script>
 </head>
+
 <body onload=displayTimeNow();>
     <div id="app">
 
@@ -76,7 +77,7 @@
     <script src="{{ asset('assets/extensions/jquery/jquery.min.js') }}"></script>
     <script>
         $(document).ready(function() {
-    
+
             // Add hover action for dropdowns
             let dropdown_hover = $(".dropdown-hover");
             dropdown_hover.on('mouseover', function() {
@@ -91,10 +92,10 @@
                 menu.removeClass('show');
                 toggle.removeClass('show').attr('aria-expanded', false);
             });
-    
+
         });
     </script>
-    @yield('javascript')
+    @stack('javascript')
 </body>
 
 </html>

@@ -1,17 +1,17 @@
 @extends('layout.app')
 
-@section('css')
+@push('css')
     <link rel="stylesheet" href="{{ asset('assets/css/pages/menu.css') }}" />
     <style>
         .accordion-body:hover {
             background: transparent !important;
         }
 
-        /*.accordion *:hover { 
-            background: transparent !important
-        }*/
+        /*.accordion *:hover {
+                background: transparent !important
+            }*/
     </style>
-@endsection
+@endpush
 
 @section('body')
     <x-page-heading title="Category Config" subtitle="Manage category" />
@@ -45,8 +45,8 @@
     </div>
 @endsection
 
-@section('javascript')
+@push('javascript')
     <script src="{{ asset('assets/extensions/toastify-js/src/toastify.js') }}"></script>
     <script src="{{ asset('assets/js/sortable.js') }}"></script>
     <script src="{{ asset('assets/js/pages/sortable-item.js') }}"></script>
-@endsection
+@endpush
