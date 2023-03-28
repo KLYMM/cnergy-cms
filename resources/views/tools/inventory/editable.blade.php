@@ -1,19 +1,12 @@
 @extends('layout.app')
 
 @section('css')
-<link rel="stylesheet" href="https://codemirror.net/5/addon/hint/show-hint.css">
-<link rel="stylesheet" href="https://codemirror.net/5/theme/material.css" />
-<link rel="stylesheet" href="https://codemirror.net/5/lib/codemirror.css">
-<style>
+    <link rel="stylesheet" href="{{ asset('assets/css/pages/codemirror.css') }}">
+    <style>
         .CodeMirror {
             border: 1px solid #eee;
             height: 375px;
-            padding: 10px 0px;
         }
-        .CodeMirror-scroll {
-            overflow-x: visible !important;
-        }
-
     </style>
 @endsection
 
@@ -106,21 +99,11 @@
 
 
 @section('javascript')
-    <script src="https://codemirror.net/5/lib/codemirror.js"></script>
-    <script src="https://codemirror.net/5/addon/hint/show-hint.js"></script>
-    <script src="https://codemirror.net/5/addon/hint/html-hint.js"></script>
-    <script src="https://codemirror.net/5/addon/hint/xml-hint.js"></script>
-    <script src="https://codemirror.net/5/mode/xml/xml.js"></script>
-    <script src="https://codemirror.net/5/mode/javascript/javascript.js"></script>
-    <script src="https://codemirror.net/5/mode/css/css.js"></script>
-    <script src="https://codemirror.net/5/mode/htmlmixed/htmlmixed.js"></script>
+    <script src="{{ asset('assets/js/codemirror.js') }}"></script>
     <script src="{{ asset('assets/js/extensions/xml.js') }}"></script>
     <script src="{{ asset('assets/js/extensions/javascript.js') }}"></script>
     <script src="{{ asset('assets/js/extensions/css.js') }}"></script>
     <script src="{{ asset('assets/js/extensions/vbscript.js') }}"></script>
     <script src="{{ asset('assets/js/extensions/htmlmixed.js') }}"></script>
     <script src="{{ asset('assets/js/pages/inventory.js') }}"></script>
-    <script>
-        console.log(CodeMirror.hint);
-    </script>
 @endsection

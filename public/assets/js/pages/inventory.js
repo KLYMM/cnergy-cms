@@ -5,22 +5,11 @@ var mixedMode = {
     name: "htmlmixed",
 };
 
-
 txtarea.forEach((el, i) => {
     CodeMirror.fromTextArea(el, {
+        lineNumbers: true,
         mode: mixedMode,
-        theme: 'material',
-        lineWrapping: true,
-		lineNumbers: true,
-		styleActiveLine: true,
-		matchBrackets: true,    
-        tabSize: 4,
-        extraKeys: {"Ctrl-Space": "autocomplete"},
     });
-    
-    CodeMirror.commands.autocomplete = function(cm) {
-        CodeMirror.showHint(cm, CodeMirror.hint.html);
-    } 
 })
 
 nav.forEach((el, i) => {
