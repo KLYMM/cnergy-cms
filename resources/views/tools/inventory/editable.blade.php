@@ -1,6 +1,6 @@
 @extends('layout.app')
 
-@section('css')
+@push('css')
 <link rel="stylesheet" href="https://codemirror.net/5/addon/hint/show-hint.css">
 <link rel="stylesheet" href="https://codemirror.net/5/theme/material.css" />
 <link rel="stylesheet" href="https://codemirror.net/5/lib/codemirror.css">
@@ -15,7 +15,7 @@
         }
 
     </style>
-@endsection
+@endpush
 
 @push('head')
 @endpush
@@ -105,7 +105,7 @@
 @endsection
 
 
-@section('javascript')
+@push('javascript')
     <script src="https://codemirror.net/5/lib/codemirror.js"></script>
     <script src="https://codemirror.net/5/addon/hint/show-hint.js"></script>
     <script src="https://codemirror.net/5/addon/hint/html-hint.js"></script>
@@ -123,4 +123,4 @@
     <script>
         console.log(CodeMirror.hint);
     </script>
-@endsection
+@endpush
