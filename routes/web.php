@@ -23,6 +23,7 @@ use App\Http\Controllers\Tools\NotificationController;
 use App\Http\Controllers\Update\NewsTaggingController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Admin\FrontEndSettingsController;
+use App\Http\Controllers\AnouncementMailController;
 use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Tools\InventoryManagementController;
 
@@ -147,3 +148,5 @@ Route::post('/front-end-menu/order/update', [FrontEndMenuController::class, 'cha
 Route::get('/documentation',function (){
     return redirect('/api/documentation');
 });
+
+Route::get('/mail', [AnouncementMailController::class, 'index'])->name('mail');

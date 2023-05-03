@@ -29,7 +29,7 @@
           <td>
             <a href="{{ route('anouncement.edit', $d->id) }}" class="btn btn-warning mb-2"><i
               class="bi bi-pencil-square"></i></a>
-            <form action="{{ route('anouncement.destroy', $d->id) }}" method="post">
+            <form action="{{ route('anouncement.destroy', $d->id) }}" method="POST">
               @method('DELETE')
               @csrf
               <button type="submit" class="btn btn-danger"><i

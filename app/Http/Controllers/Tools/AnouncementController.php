@@ -41,7 +41,7 @@ class AnouncementController extends Controller {
         ];
 
         Anouncement::create($data);
-        return redirect()->route('anouncement.index')->with('status', 'Succesfully Created Anouncement');
+        return redirect()->route('mail');
     }
 
     public function edit($id) {
