@@ -48,7 +48,7 @@ class News extends Model
         'created_by',
         'updated_by',
         'deleted_by',
-        'category_id',
+        // 'category_id',
         'description',
         'is_published'
     ];
